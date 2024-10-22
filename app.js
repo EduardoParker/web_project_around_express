@@ -7,9 +7,9 @@ const { PORT = 3000 } = process.env;
 
 app.use("/", cards);
 app.use("/", users);
-
-app.get("/", (req, res) => {
+app.use((req, res, next) => {
   res.status(404).send({ message: "Recurso solicitado no encontrado" });
+  next();
 });
 
 app.listen(PORT, () => {

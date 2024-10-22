@@ -21,10 +21,11 @@ router.get("/users/:id", (req, res) => {
       return;
     }
     const user = JSON.parse(usersData);
-    if (!user[req.params.id]) {
+    const search = user.find((element) => element._id === req.params.id);
+    if (!search) {
       res.status(404).send({ message: "ID de usuario no encontrado" });
     }
-    res.send(user[req.params.id]);
+    res.send(search);
   });
 });
 
