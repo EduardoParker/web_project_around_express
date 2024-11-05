@@ -1,8 +1,6 @@
 const { default: mongoose } = require("mongoose");
 const User = require("../models/user");
 const path = require("path");
-//const fs = require("fs");
-//const usersPath = path.join(__dirname, ".././data/users.json");
 
 module.exports.getUsers = (req, res) => {
   User.find({})
@@ -30,7 +28,9 @@ module.exports.createUser = (req, res) => {
       })
     )
     .catch((err) =>
-      res.status(400).send({ message: "Los datos son incorrectos" })
+      res
+        .status(400)
+        .send({ message: "Los datos son incorrectos, por favor revisalos" })
     );
 };
 
@@ -44,7 +44,9 @@ module.exports.updateUser = (req, res) => {
     .orFail()
     .then((user) => res.send({ data: user }))
     .catch((err) =>
-      res.status(400).send({ message: "Los datos son incorrectos" })
+      res
+        .status(400)
+        .send({ message: "Los datos son incorrectos, por favor revisalos" })
     );
 };
 
@@ -59,8 +61,10 @@ module.exports.updateUserAvatar = (req, res) => {
     }
   )
     .orFail()
-    .then((user) => res.send({ data: user }))
+    .then((user) => res.send({ status: true, data: user }))
     .catch((err) =>
-      res.status(404).send({ message: "La direccion es incorrecta" })
+      res
+        .status(400)
+        .send({ message: "La direccion es incorrecta, , por favor revisala" })
     );
 };

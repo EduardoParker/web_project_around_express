@@ -10,12 +10,15 @@ const cardSchema = new mongoose.Schema({
   link: {
     type: String,
     required: true,
-    //validate: {
-    //  validator(v) {
-    //    return (v = link = string);
-    //  },
-    //  message: "lo sentimos, la direccion que ingresaste no es valida",
-    //},
+    validate: {
+      validator(v) {
+        return (v =
+          /(((http|https):\/\/))(\w{3}:{0,1})?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/.test(
+            v
+          ));
+      },
+      message: "lo sentimos, la direccion que ingresaste no es valida",
+    },
   },
   owner: {
     type: mongoose.Schema.Types.ObjectId,

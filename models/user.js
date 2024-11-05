@@ -1,16 +1,5 @@
 const mongoose = require("mongoose");
 
-/*function validator(val) {
-  return val === "something";
-}
-new Schema({ name: { type: String, validate: validator } });
-
-// with a custom error message
-
-const custom = [validator, 'Uh oh, {PATH} does not equal "something".'];
-new Schema({ name: { type: String, validate: custom } });
-*/
-
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -27,12 +16,15 @@ const userSchema = new mongoose.Schema({
   avatar: {
     type: String,
     required: true,
-    //validate: {
-    // validator(v) {
-    //  return (v = avatar = string);
-    //},
-    //message: "lo sentimos, la direccion que ingresaste no es valida",
-    //},
+    validate: {
+      validator(v) {
+        return (v =
+          /(((http|https):\/\/))(\w{3}:{0,1})?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/.test(
+            v
+          ));
+      },
+      message: "lo sentimos, la direccion que ingresaste no es valida",
+    },
   },
 });
 
